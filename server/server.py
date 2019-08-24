@@ -9,11 +9,21 @@ class Server(IServer):
         self.ip = ip
         self.port = port
 
-        self._create_server()
+        self.create_server()
 
-    def _create_server(self):
-        self.socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM)
-        self.socket.bind((self.ip, self.port))
+    def convert_address_to_string(self, ip_address):
+        return '{}:{}'.format(ip_address[0], ip_address[1])
+
+    def convert_string_to_address(self, ip_address_string):
+        ip, port = ip_address_string.split(':')
+        return ip, int(port)
+
+    def create_server(self):
+        raise NotImplementedError
 
     def handle_connection(self):
         raise NotImplementedError
+
+    def destroy_server(self):
+        print('Closing connection:')
+        self.socket.close()
