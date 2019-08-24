@@ -5,8 +5,8 @@ from server.server import Server
 
 class TCPServer(Server):
     def __init__(self, ip, port, queue_connections):
-        super().__init__(ip, port)
         self.queue_connections = queue_connections
+        super().__init__(ip, port)
         self.create_server()
 
     def create_server(self):
